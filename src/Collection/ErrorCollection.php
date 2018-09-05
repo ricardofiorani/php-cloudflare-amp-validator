@@ -2,13 +2,9 @@
 
 namespace RicardoFiorani\Collection;
 
-use ArrayAccess;
-use ArrayIterator;
-use IteratorAggregate;
-use LogicException;
 use RicardoFiorani\Validator\Response\Error\ValidationErrorInterface;
 
-class ErrorCollection implements ArrayAccess, IteratorAggregate
+class ErrorCollection
 {
     private $elements;
 
@@ -17,144 +13,33 @@ class ErrorCollection implements ArrayAccess, IteratorAggregate
         $this->elements = [];
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->elements;
     }
 
-    public function first()
-    {
-        return reset($this->elements);
-    }
-
-    public function last()
-    {
-        return end($this->elements);
-    }
-
-    public function key()
-    {
-        return key($this->elements);
-    }
-
-    public function next()
-    {
-        return next($this->elements);
-    }
-
-    public function current()
-    {
-        return current($this->elements);
-    }
-
-    public function remove($key)
-    {
-        if (!isset($this->elements[$key]) && !array_key_exists($key, $this->elements)) {
-            return null;
-        }
-
-        $removed = $this->elements[$key];
-        unset($this->elements[$key]);
-
-        return $removed;
-    }
-
-    public function removeElement(ValidationErrorInterface $element)
+    public function removeElement(ValidationErrorInterface $element): self
     {
         $key = array_search($element, $this->elements, true);
 
-        if ($key === false) {
-            return false;
+        if ($key !== false) {
+            unset($this->elements[$key]);
         }
 
-        unset($this->elements[$key]);
-
-        return true;
+        return $this;
     }
 
-    public function offsetExists($offset)
-    {
-        return $this->containsKey($offset);
-    }
-
-    public function offsetGet($offset)
-    {
-        return $this->get($offset);
-    }
-
-    public function offsetSet($offset, $value)
-    {
-        if (false == $value instanceof ValidationErrorInterface) {
-            throw new LogicException('Value must be an implementation of ValidationErrorInterface');
-        }
-
-        if (!isset($offset)) {
-            $this->add($value);
-            return;
-        }
-
-        $this->set($offset, $value);
-    }
-
-    public function offsetUnset($offset)
-    {
-        $this->remove($offset);
-    }
-
-    public function containsKey($key)
-    {
-        return isset($this->elements[$key]) || array_key_exists($key, $this->elements);
-    }
-
-    public function indexOf($element)
-    {
-        return array_search($element, $this->elements, true);
-    }
-
-    public function get($key)
-    {
-        return $this->elements[$key] ?? null;
-    }
-
-    public function getKeys()
-    {
-        return array_keys($this->elements);
-    }
-
-    public function getValues()
-    {
-        return array_values($this->elements);
-    }
-
-    public function count()
-    {
-        return count($this->elements);
-    }
-
-    public function add(ValidationErrorInterface $element)
+    public function add(ValidationErrorInterface $element): self
     {
         $this->elements[] = $element;
 
-        return true;
+        return $this;
     }
 
-    public function isEmpty()
-    {
-        return empty($this->elements);
-    }
-
-    public function getIterator()
-    {
-        return new ArrayIterator($this->elements);
-    }
-
-    public function clear()
+    public function clear(): self
     {
         $this->elements = [];
-    }
 
-    public function slice($offset, $length = null)
-    {
-        return array_slice($this->elements, $offset, $length, true);
+        return $this;
     }
 }
