@@ -1,6 +1,5 @@
 # PHP Cloudflare AMP Validator
 
-
 ## Install
 
 Via Composer
@@ -10,12 +9,15 @@ $ composer require ricardofiorani/php-cloudflare-amp-validator
 ```
 
 ## Usage
-TBD
 ``` php
 use \RicardoFiorani\Validator\Validator;
 
 $validator = new Validator();
 var_dump($validator->validateUrl('https://amp.mywebsite.com')->isValid());
+
+$content = $yourHtmlRenderer->render();
+var_dump($validator->validateContent($content)->isValid());
+
 ```
 
 ## Testing
@@ -23,10 +25,6 @@ var_dump($validator->validateUrl('https://amp.mywebsite.com')->isValid());
 ``` bash
 $ composer test
 ```
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
 
 ## Credits
 

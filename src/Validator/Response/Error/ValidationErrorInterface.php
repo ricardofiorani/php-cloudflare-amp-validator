@@ -2,7 +2,7 @@
 
 namespace RicardoFiorani\Validator\Response\Error;
 
-interface ErrorInterface
+interface ValidationErrorInterface
 {
     public function getCode(): string;
 

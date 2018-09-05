@@ -2,15 +2,45 @@
 
 namespace RicardoFiorani\Validator\Response;
 
-use RicardoFiorani\Collection\ErrorCollectionInterface;
+use RicardoFiorani\Collection\ErrorCollection;
 
-interface ValidationResponse
+class ValidationResponse implements ValidationResponseInterface
 {
-    public function getSource(): string;
+    private $source;
+    private $version;
+    private $isValid;
+    private $errors;
 
-    public function getVersion(): string;
+    public function __construct(
+        string $source,
+        string $version,
+        bool $isValid,
+        ErrorCollection $errors
+    ) {
+        $this->source = $source;
+        $this->version = $version;
+        $this->isValid = $isValid;
+        $this->errors = $errors;
+    }
 
-    public function isValid(): bool;
+    public function getSource(): string
+    {
+        return $this->source;
+    }
 
-    public function getErrors(): ErrorCollectionInterface;
+    public function getVersion(): string
+    {
+        return $this->version;
+    }
+
+    public function isValid(): bool
+    {
+        return $this->isValid;
+    }
+
+    public function getErrors(): ErrorCollection
+    {
+        return $this->errors;
+    }
+
 }
