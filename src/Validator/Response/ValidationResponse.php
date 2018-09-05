@@ -42,5 +42,4 @@ class ValidationResponse implements ValidationResponseInterface
     {
         return $this->errors;
     }
-
 }
