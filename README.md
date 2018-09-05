@@ -1,5 +1,8 @@
 # PHP Cloudflare AMP Validator
 
+## About
+This an PHP Library that wraps the [Cloudflare AMP validation API](https://blog.cloudflare.com/amp-validator-api/).
+
 ## Install
 
 Via Composer
@@ -27,7 +30,6 @@ $ composer test
 ```
 
 ## Credits
-
 - [Ricardo Fiorani](https://github.com/ricardofiorani)
 - [All Contributors](https://github.com/ricardofiorani/php-cloudflare-amp-validator/graphs/contributors)
 

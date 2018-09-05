@@ -3,7 +3,9 @@
 namespace RicardoFiorani\Collection;
 
 use ArrayAccess;
+use ArrayIterator;
 use IteratorAggregate;
+use LogicException;
 use RicardoFiorani\Validator\Response\Error\ValidationErrorInterface;
 
 class ErrorCollection implements ArrayAccess, IteratorAggregate
@@ -83,7 +85,7 @@ class ErrorCollection implements ArrayAccess, IteratorAggregate
     public function offsetSet($offset, $value)
     {
         if (false == $value instanceof ValidationErrorInterface) {
-            throw new \LogicException('Value must be an implementation of ValidationErrorInterface');
+            throw new LogicException('Value must be an implementation of ValidationErrorInterface');
         }
 
         if (!isset($offset)) {
@@ -143,7 +145,7 @@ class ErrorCollection implements ArrayAccess, IteratorAggregate
 
     public function getIterator()
     {
-        return new \ArrayIterator($this->elements);
+        return new ArrayIterator($this->elements);
     }
 
     public function clear()
