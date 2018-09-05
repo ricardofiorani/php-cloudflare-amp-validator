@@ -2,6 +2,7 @@
     "name": "ricardofiorani/php-cloudflare-amp-validator",
     "description": "A PHP wrapper for Cloudflare AMP validator",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Ricardo Fiorani",
@@ -17,7 +18,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^7.3",
-        "mockery/mockery": "^1.1"
+        "mockery/mockery": "^1.1",
+        "spryker/code-sniffer": "^0.12.3"
     },
     "autoload": {
       "psr-4": {

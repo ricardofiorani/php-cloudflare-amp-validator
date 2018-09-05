@@ -1,7 +1,13 @@
 # PHP Cloudflare AMP Validator
+[![Build Status](https://api.travis-ci.org/ricardofiorani/php-cloudflare-amp-validator.svg?branch=master)](http://travis-ci.org/ricardofiorani/php-cloudflare-amp-validator)
+[![Minimum PHP Version](https://img.shields.io/packagist/php-v/ricardofiorani/php-cloudflare-amp-validator.svg)](https://php.net/)
+[![License](https://poser.pugx.org/ricardofiorani/php-cloudflare-amp-validator/license.png)](https://packagist.org/packages/ricardofiorani/php-cloudflare-amp-validator)
+[![Total Downloads](https://poser.pugx.org/ricardofiorani/php-cloudflare-amp-validator/d/total.png)](https://packagist.org/packages/ricardofiorani/php-cloudflare-amp-validator)
+[![Coding Standards](https://img.shields.io/badge/cs-PSR--4-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ricardofiorani/php-cloudflare-amp-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ricardofiorani/php-cloudflare-amp-validator/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/ricardofiorani/php-cloudflare-amp-validator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ricardofiorani/php-cloudflare-amp-validator/?branch=master)
 
-## About
-This an PHP Library that wraps the [Cloudflare AMP validation API](https://blog.cloudflare.com/amp-validator-api/).
+PHP Cloudflare AMP Validator is a PHP Library that wraps the [Cloudflare AMP validation API](https://blog.cloudflare.com/amp-validator-api/).
 
 ## Install
 
