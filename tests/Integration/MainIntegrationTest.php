@@ -2,17 +2,25 @@
 
 namespace Tests\RicardoFiorani\Integration;
 
+use Http\Adapter\Guzzle6\Client;
 use PHPUnit\Framework\TestCase;
 use RicardoFiorani\Validator\Validator;
 
 class MainIntegrationTest extends TestCase
 {
+    private $client;
+
+    public function setUp()
+    {
+        $this->client = new Client();
+    }
+
     /**
      * @dataProvider invalidUrlProvider
      */
     public function testValidateInvalidUrl(string $url)
     {
-        $validator = new Validator();
+        $validator = new Validator($this->client);
         $response = $validator->validateUrl($url);
 
         $this->assertFalse($response->isValid());
@@ -21,7 +29,7 @@ class MainIntegrationTest extends TestCase
 
     public function testValidateInvalidContent()
     {
-        $validator = new Validator();
+        $validator = new Validator($this->client);
         $response = $validator->validateContent($this->getInvalidContent());
 
         $this->assertFalse($response->isValid());
@@ -33,7 +41,7 @@ class MainIntegrationTest extends TestCase
      */
     public function testValidateValidUrl(string $url)
     {
-        $validator = new Validator();
+        $validator = new Validator($this->client);
         $response = $validator->validateUrl($url);
 
         $this->assertTrue($response->isValid());
@@ -42,7 +50,7 @@ class MainIntegrationTest extends TestCase
 
     public function testValidateValidContent()
     {
-        $validator = new Validator();
+        $validator = new Validator($this->client);
         $response = $validator->validateContent($this->getValidContent());
 
         $this->assertTrue($response->isValid());

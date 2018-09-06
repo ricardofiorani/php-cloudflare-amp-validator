@@ -2,12 +2,12 @@
 
 namespace RicardoFiorani\Validator;
 
-use GuzzleHttp\ClientInterface;
+use Http\Client\HttpClient;
 use RicardoFiorani\Validator\Response\ValidationResponseInterface;
 
 interface ValidatorInterface
 {
-    public function setClient(ClientInterface $client);
+    public function setClient(HttpClient $client);
 
     public function validateUrl(string $url): ValidationResponseInterface;
 
