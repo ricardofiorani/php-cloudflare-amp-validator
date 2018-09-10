@@ -2,12 +2,12 @@
 
 namespace RicardoFiorani\Validator;
 
-use Http\Client\HttpClient;
+use Psr\Http\Client\ClientInterface;
 use RicardoFiorani\Validator\Response\ValidationResponseInterface;
 
 interface ValidatorInterface
 {
-    public function setClient(HttpClient $client);
+    public function setHttpClient(ClientInterface $client);
 
     public function validateUrl(string $url): ValidationResponseInterface;
 

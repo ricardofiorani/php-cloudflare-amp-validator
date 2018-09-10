@@ -2,7 +2,7 @@
 
 namespace RicardoFiorani\Validator\Response;
 
-use RicardoFiorani\Collection\ErrorCollection;
+use RicardoFiorani\Validator\Response\Error\Collection\ErrorCollection;
 
 class ValidationResponse implements ValidationResponseInterface
 {

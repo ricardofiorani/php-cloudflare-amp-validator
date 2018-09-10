@@ -2,7 +2,7 @@
 
 namespace Tests\RicardoFiorani\Integration;
 
-use Http\Adapter\Guzzle6\Client;
+use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use RicardoFiorani\Validator\Validator;
 

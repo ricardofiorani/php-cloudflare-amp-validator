@@ -2,9 +2,8 @@
 
 namespace RicardoFiorani\Validator;
 
-use Http\Client\Exception as HttpException;
-use Http\Client\HttpClient;
-use Psr\Http\Message\RequestInterface;
+use GuzzleHttp\Psr7\Request;
+use Psr\Http\Client\ClientInterface;
 use RicardoFiorani\Validator\Response\ValidationResponseFactory;
 use RicardoFiorani\Validator\Response\ValidationResponseInterface;
 
@@ -13,46 +12,50 @@ class Validator implements ValidatorInterface
     const CLOUDFLARE_AMP_VALIDATOR_ENDPOINT = 'https://amp.cloudflare.com/q/';
 
     /**
-     * @var HttpClient
+     * @var ClientInterface
      */
-    private $client;
+    private $httpClient;
 
-    public function __construct(HttpClient $client)
+    /**
+     * @var ValidationResponseFactory
+     */
+    private $responseFactory;
+
+    public function __construct(ClientInterface $httpClient)
     {
-        $this->setClient($client);
+        $this->setHttpClient($httpClient);
+        $this->responseFactory = new ValidationResponseFactory();
     }
 
-    public function setClient(HttpClient $client)
+    public function setHttpClient(ClientInterface $httpClient)
     {
-        $this->client = $client;
+        $this->httpClient = $httpClient;
     }
 
     /**
-     * @throws HttpException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
      */
     public function validateUrl(string $url): ValidationResponseInterface
     {
         $url = $this->normaliseUrl($url);
-        $request =
-        $response = $this->client->sendRequest('GET', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT . $url);
+        $request = new Request('GET', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT . $url);
+        $response = $this->httpClient->sendRequest($request);
 
-        return ValidationResponseFactory::createFromGuzzleResponse($response);
+        return $this->responseFactory->create($response);
     }
 
     /**
-     * @throws HttpException
+     * @throws \Psr\Http\Client\ClientExceptionInterface
      */
     public function validateContent(string $content): ValidationResponseInterface
     {
-        $response = $this->client->request(
-            'POST',
-            self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT,
-            [
-                'body' => $content,
-            ]
-        );
+        $headers = [
+            'body' => $content,
+        ];
+        $request = new Request('POST', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT, $headers);
+        $response = $this->httpClient->sendRequest($request);
 
-        return ValidationResponseFactory::createFromGuzzleResponse($response);
+        return $this->responseFactory->create($response);
     }
 
     private function normaliseUrl(string $url): string
