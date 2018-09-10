@@ -28,7 +28,7 @@ JSON;
             ->shouldReceive('getBody')
             ->andReturn($jsonBody);
 
-        $generatedResposne = ValidationResponseFactory::createFromGuzzleResponse($guzzleResponseMock);
+        $generatedResposne = ValidationResponseFactory::create($guzzleResponseMock);
 
         $this->assertTrue($generatedResposne->isValid());
         $this->assertEmpty($generatedResposne->getErrors()->toArray());
@@ -57,7 +57,7 @@ JSON;
             ->shouldReceive('getBody')
             ->andReturn($jsonBody);
 
-        $generatedResposne = ValidationResponseFactory::createFromGuzzleResponse($guzzleResponseMock);
+        $generatedResposne = ValidationResponseFactory::create($guzzleResponseMock);
 
         $this->assertFalse($generatedResposne->isValid());
         $this->assertNotEmpty($generatedResposne->getErrors()->toArray());
