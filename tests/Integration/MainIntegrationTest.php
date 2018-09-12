@@ -2,8 +2,8 @@
 
 namespace Tests\RicardoFiorani\Integration;
 
-use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
+use RicardoFiorani\GuzzlePsr18Adapter\Client;
 use RicardoFiorani\Validator\Validator;
 
 class MainIntegrationTest extends TestCase

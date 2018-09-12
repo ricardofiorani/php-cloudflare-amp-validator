@@ -11,6 +11,12 @@
             "role": "Software Engineer"
         }
     ],
+    "keywords": [
+        "google",
+        "amphtml",
+        "amp",
+        "validator"
+    ],
     "require": {
         "php" : ">=7.1",
         "ext-json": "*",
@@ -22,7 +28,11 @@
         "phpunit/phpunit": "^7.3",
         "mockery/mockery": "^1.1",
         "spryker/code-sniffer": "^0.12.3",
-        "guzzlehttp/guzzle": "^6.3"
+        "ricardofiorani/guzzle-psr18-adapter": "^1.0"
+    },
+    "suggest": {
+        "ricardofiorani/guzzle-psr18-adapter": "Allows using Guzzle with this package",
+        "ext-xml": "Needed to support XML format in class Foo"
     },
     "autoload": {
       "psr-4": {

@@ -28,10 +28,11 @@ JSON;
             ->shouldReceive('getBody')
             ->andReturn($jsonBody);
 
-        $generatedResposne = ValidationResponseFactory::create($guzzleResponseMock);
+        $factory = new ValidationResponseFactory();
+        $generatedResponse = $factory->create($guzzleResponseMock);
 
-        $this->assertTrue($generatedResposne->isValid());
-        $this->assertEmpty($generatedResposne->getErrors()->toArray());
+        $this->assertTrue($generatedResponse->isValid());
+        $this->assertEmpty($generatedResponse->getErrors()->toArray());
     }
 
     public function testFactoryForInvalidResponse()
@@ -57,9 +58,10 @@ JSON;
             ->shouldReceive('getBody')
             ->andReturn($jsonBody);
 
-        $generatedResposne = ValidationResponseFactory::create($guzzleResponseMock);
+        $factory = new ValidationResponseFactory();
+        $generatedResponse = $factory->create($guzzleResponseMock);
 
-        $this->assertFalse($generatedResposne->isValid());
-        $this->assertNotEmpty($generatedResposne->getErrors()->toArray());
+        $this->assertFalse($generatedResponse->isValid());
+        $this->assertNotEmpty($generatedResponse->getErrors()->toArray());
     }
 }
