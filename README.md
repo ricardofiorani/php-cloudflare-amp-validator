@@ -21,7 +21,8 @@ $ composer require ricardofiorani/php-cloudflare-amp-validator
 ``` php
 use \RicardoFiorani\Validator\Validator;
 
-$validator = new Validator();
+$httpClient = new \Your\Psr18\HttpClient();
+$validator = new Validator($httpClient);
 var_dump($validator->validateUrl('https://amp.mywebsite.com')->isValid());
 
 $content = $yourHtmlRenderer->render();
