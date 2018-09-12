@@ -9,6 +9,11 @@
 
 PHP Cloudflare AMP Validator is a PHP Library that wraps the [Cloudflare AMP validation API](https://blog.cloudflare.com/amp-validator-api/).
 
+## Requirements
+- PHP >=7.1
+- An PSR-18 HttpClient
+
+
 ## Install
 
 Via Composer

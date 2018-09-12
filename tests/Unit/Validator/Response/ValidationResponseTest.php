@@ -3,7 +3,7 @@
 namespace Tests\RicardoFiorani\Unit\Validator\Response;
 
 use PHPUnit\Framework\TestCase;
-use RicardoFiorani\Collection\ErrorCollection;
+use RicardoFiorani\Validator\Response\Error\Collection\ErrorCollection;
 use RicardoFiorani\Validator\Response\Error\ValidationError;
 use RicardoFiorani\Validator\Response\ValidationResponse;
 use Mockery as m;
