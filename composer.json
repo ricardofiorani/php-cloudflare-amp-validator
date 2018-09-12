@@ -30,8 +30,7 @@
         "ricardofiorani/guzzle-psr18-adapter": "^1.0"
     },
     "suggest": {
-        "ricardofiorani/guzzle-psr18-adapter": "Allows using Guzzle with this package",
-        "ext-xml": "Needed to support XML format in class Foo"
+        "ricardofiorani/guzzle-psr18-adapter": "Allows using Guzzle with this package"
     },
     "autoload": {
       "psr-4": {
