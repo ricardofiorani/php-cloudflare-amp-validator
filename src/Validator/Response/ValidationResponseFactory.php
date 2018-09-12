@@ -3,19 +3,19 @@
 namespace RicardoFiorani\Validator\Response;
 
 use Psr\Http\Message\ResponseInterface;
-use RicardoFiorani\Collection\ErrorCollection;
+use RicardoFiorani\Validator\Response\Error\Collection\ErrorCollection;
 use RicardoFiorani\Validator\Response\Error\ValidationError;
 
 class ValidationResponseFactory
 {
-    public static function createFromGuzzleResponse(ResponseInterface $response): ValidationResponseInterface
+    public function create(ResponseInterface $response): ValidationResponseInterface
     {
         $jsonResponse = (string)$response->getBody();
         $jsonResponseObject = json_decode($jsonResponse);
 
         $errorCollection = $jsonResponseObject->valid ?
             new ErrorCollection() :
-            self::createErrorCollectionFromJsonResponseObject($jsonResponseObject);
+            $this->createErrorCollectionFromJsonResponseObject($jsonResponseObject);
 
         return new ValidationResponse(
             $jsonResponseObject->source,
@@ -25,7 +25,7 @@ class ValidationResponseFactory
         );
     }
 
-    private static function createErrorCollectionFromJsonResponseObject(\stdClass $jsonResponseObject): ErrorCollection
+    private function createErrorCollectionFromJsonResponseObject(\stdClass $jsonResponseObject): ErrorCollection
     {
         $collection = new ErrorCollection();
 

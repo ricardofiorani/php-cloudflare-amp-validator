@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace RicardoFiorani\Collection;
+namespace RicardoFiorani\Validator\Response\Error\Collection;
 
 use RicardoFiorani\Validator\Response\Error\ValidationErrorInterface;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\RicardoFiorani\Unit\Collection;
+namespace Tests\RicardoFiorani\Unit\Validator\Response\Error\Collection;
 
-use RicardoFiorani\Collection\ErrorCollection;
+use RicardoFiorani\Validator\Response\Error\Collection\ErrorCollection;
 use PHPUnit\Framework\TestCase;
 use Mockery as m;
 use RicardoFiorani\Validator\Response\Error\ValidationError;
@@ -10,7 +10,7 @@ use RicardoFiorani\Validator\Response\Error\ValidationError;
 class ErrorCollectionTest extends TestCase
 {
     /**
-     * @var ErrorCollection
+     * @var \RicardoFiorani\Validator\Response\Error\Collection\ErrorCollection
      */
     private $collection;
 
@@ -30,7 +30,7 @@ class ErrorCollectionTest extends TestCase
 
         $this->collection->add($errorMock);
 
-        $this->assertEquals([$errorMock], $this->collection->toArray());
+        TestCase::assertEquals([$errorMock], $this->collection->toArray());
     }
 
     public function testRemoveElement()
@@ -40,7 +40,7 @@ class ErrorCollectionTest extends TestCase
         $this->collection->add($errorMock);
         $this->collection->removeElement($errorMock);
 
-        $this->assertEmpty($this->collection->toArray());
+        TestCase::assertEmpty($this->collection->toArray());
     }
 
     public function testClear()
@@ -56,6 +56,6 @@ class ErrorCollectionTest extends TestCase
 
         $this->collection->clear();
 
-        $this->assertEmpty($this->collection->toArray());
+        TestCase::assertEmpty($this->collection->toArray());
     }
 }
