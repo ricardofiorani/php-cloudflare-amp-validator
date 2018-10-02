@@ -63,9 +63,9 @@ class Validator implements ValidatorInterface
     public function validateContent(string $content): ValidationResponseInterface
     {
         $request = $this->requestFactory->createRequest('POST', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT);
-        $request->withBody(stream_for($content));
+        $requestWithBody = $request->withBody(stream_for($content));
 
-        $response = $this->httpClient->sendRequest($request);
+        $response = $this->httpClient->sendRequest($requestWithBody);
 
         return $this->responseFactory->create($response);
     }
