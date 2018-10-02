@@ -2,10 +2,12 @@
 
 namespace RicardoFiorani\Validator;
 
-use GuzzleHttp\Psr7\Request;
+use function GuzzleHttp\Psr7\stream_for;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
 use RicardoFiorani\Validator\Response\ValidationResponseFactory;
 use RicardoFiorani\Validator\Response\ValidationResponseInterface;
+use Zend\Diactoros\RequestFactory;
 
 class Validator implements ValidatorInterface
 {
@@ -21,10 +23,21 @@ class Validator implements ValidatorInterface
      */
     private $responseFactory;
 
-    public function __construct(ClientInterface $httpClient)
+    /**
+     * @var RequestFactoryInterface
+     */
+    private $requestFactory;
+
+    public function __construct(ClientInterface $httpClient, ?RequestFactoryInterface $requestFactory = null)
     {
         $this->setHttpClient($httpClient);
         $this->responseFactory = new ValidationResponseFactory();
+
+        if (is_null($requestFactory)) {
+            $requestFactory = new RequestFactory();
+        }
+
+        $this->requestFactory = $requestFactory;
     }
 
     public function setHttpClient(ClientInterface $httpClient)
@@ -38,7 +51,7 @@ class Validator implements ValidatorInterface
     public function validateUrl(string $url): ValidationResponseInterface
     {
         $url = $this->normaliseUrl($url);
-        $request = new Request('GET', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT . $url);
+        $request = $this->requestFactory->createRequest('GET', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT . $url);
         $response = $this->httpClient->sendRequest($request);
 
         return $this->responseFactory->create($response);
@@ -49,7 +62,9 @@ class Validator implements ValidatorInterface
      */
     public function validateContent(string $content): ValidationResponseInterface
     {
-        $request = new Request('POST', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT, [], $content);
+        $request = $this->requestFactory->createRequest('POST', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT);
+        $request->withBody(stream_for($content));
+
         $response = $this->httpClient->sendRequest($request);
 
         return $this->responseFactory->create($response);
