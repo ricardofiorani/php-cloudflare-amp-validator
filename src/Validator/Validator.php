@@ -2,12 +2,13 @@
 
 namespace RicardoFiorani\Validator;
 
-use function GuzzleHttp\Psr7\stream_for;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use RicardoFiorani\Validator\Response\ValidationResponseFactory;
 use RicardoFiorani\Validator\Response\ValidationResponseInterface;
 use Zend\Diactoros\RequestFactory;
+
+use function GuzzleHttp\Psr7\stream_for;
 
 class Validator implements ValidatorInterface
 {
