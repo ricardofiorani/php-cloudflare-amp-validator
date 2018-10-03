@@ -2,13 +2,13 @@
 
 namespace RicardoFiorani\Validator;
 
+use Http\Factory\Diactoros\RequestFactory;
+use Http\Factory\Diactoros\StreamFactory;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use RicardoFiorani\Validator\Response\ValidationResponseFactory;
 use RicardoFiorani\Validator\Response\ValidationResponseInterface;
-use Zend\Diactoros\RequestFactory;
 
-use function GuzzleHttp\Psr7\stream_for;
 
 class Validator implements ValidatorInterface
 {
@@ -34,11 +34,7 @@ class Validator implements ValidatorInterface
         $this->setHttpClient($httpClient);
         $this->responseFactory = new ValidationResponseFactory();
 
-        if (is_null($requestFactory)) {
-            $requestFactory = new RequestFactory();
-        }
-
-        $this->requestFactory = $requestFactory;
+        $this->requestFactory = $requestFactory ?? new RequestFactory();
     }
 
     public function setHttpClient(ClientInterface $httpClient)
@@ -64,7 +60,7 @@ class Validator implements ValidatorInterface
     public function validateContent(string $content): ValidationResponseInterface
     {
         $request = $this->requestFactory->createRequest('POST', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT);
-        $requestWithBody = $request->withBody(stream_for($content));
+        $requestWithBody = $request->withBody((new StreamFactory())->createStream($content));
 
         $response = $this->httpClient->sendRequest($requestWithBody);
 
