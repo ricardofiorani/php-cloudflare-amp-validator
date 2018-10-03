@@ -27,6 +27,9 @@ $ composer require ricardofiorani/php-cloudflare-amp-validator
 use \RicardoFiorani\Validator\Validator;
 
 $httpClient = new \Your\Psr18\HttpClient();
+$requestFactory = new \Your\PSR-17\RequestFactoryInterface; 
+$validator = new Validator($httpClient, $requestFactory);
+//or you can use the default request factory by ignoring the second parameter 
 $validator = new Validator($httpClient);
 var_dump($validator->validateUrl('https://amp.mywebsite.com')->isValid());
 

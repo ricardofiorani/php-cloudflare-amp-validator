@@ -2,8 +2,10 @@
 
 namespace RicardoFiorani\Validator;
 
-use GuzzleHttp\Psr7\Request;
+use Http\Factory\Diactoros\RequestFactory;
+use Http\Factory\Diactoros\StreamFactory;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
 use RicardoFiorani\Validator\Response\ValidationResponseFactory;
 use RicardoFiorani\Validator\Response\ValidationResponseInterface;
 
@@ -21,10 +23,17 @@ class Validator implements ValidatorInterface
      */
     private $responseFactory;
 
-    public function __construct(ClientInterface $httpClient)
+    /**
+     * @var RequestFactoryInterface
+     */
+    private $requestFactory;
+
+    public function __construct(ClientInterface $httpClient, ?RequestFactoryInterface $requestFactory = null)
     {
         $this->setHttpClient($httpClient);
         $this->responseFactory = new ValidationResponseFactory();
+
+        $this->requestFactory = $requestFactory ?? new RequestFactory();
     }
 
     public function setHttpClient(ClientInterface $httpClient)
@@ -38,7 +47,7 @@ class Validator implements ValidatorInterface
     public function validateUrl(string $url): ValidationResponseInterface
     {
         $url = $this->normaliseUrl($url);
-        $request = new Request('GET', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT . $url);
+        $request = $this->requestFactory->createRequest('GET', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT . $url);
         $response = $this->httpClient->sendRequest($request);
 
         return $this->responseFactory->create($response);
@@ -49,8 +58,10 @@ class Validator implements ValidatorInterface
      */
     public function validateContent(string $content): ValidationResponseInterface
     {
-        $request = new Request('POST', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT, [], $content);
-        $response = $this->httpClient->sendRequest($request);
+        $request = $this->requestFactory->createRequest('POST', self::CLOUDFLARE_AMP_VALIDATOR_ENDPOINT);
+        $requestWithBody = $request->withBody((new StreamFactory())->createStream($content));
+
+        $response = $this->httpClient->sendRequest($requestWithBody);
 
         return $this->responseFactory->create($response);
     }
