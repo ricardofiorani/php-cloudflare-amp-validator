@@ -9,7 +9,6 @@ use Psr\Http\Message\RequestFactoryInterface;
 use RicardoFiorani\Validator\Response\ValidationResponseFactory;
 use RicardoFiorani\Validator\Response\ValidationResponseInterface;
 
-
 class Validator implements ValidatorInterface
 {
     const CLOUDFLARE_AMP_VALIDATOR_ENDPOINT = 'https://amp.cloudflare.com/q/';
