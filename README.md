@@ -1,3 +1,9 @@
+# NOT WORKING ANYMORE / FEATURE DISABLED BY CLOUDFLARE
+As Cloudflare announced on https://blog.cloudflare.com/amp-validator-api/, their AMP validator is no longer available.
+
+Well, it was nice while it lasted :)
+
+
 # PHP Cloudflare AMP Validator
 [![Build Status](https://api.travis-ci.org/ricardofiorani/php-cloudflare-amp-validator.svg?branch=master)](http://travis-ci.org/ricardofiorani/php-cloudflare-amp-validator)
 [![Minimum PHP Version](https://img.shields.io/packagist/php-v/ricardofiorani/php-cloudflare-amp-validator.svg)](https://php.net/)
